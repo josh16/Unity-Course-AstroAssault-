@@ -15,6 +15,16 @@ namespace LearnProgrammingAcademy.AstroAssault {
         [SerializeField]
         private float speed = 15;
 
+
+        [SerializeField]
+        private float xmin = -7.2f;
+
+        [SerializeField]
+        private float xmax = 7.2f;
+
+        [SerializeField]  
+        private float padding = 0.9f; // Padding for ship's body to not stay half out
+
         private Rigidbody2D body;
 
         #endregion
@@ -32,6 +42,13 @@ namespace LearnProgrammingAcademy.AstroAssault {
             float horizontalMovement = Input.GetAxis(HORIZONTAL);
 
             body.velocity = new Vector2(horizontalMovement * speed, 0f);
+
+            //restrict player movement (Player position) between xmin and xmax value
+            float newX = Mathf.Clamp(body.position.x, xmin + padding, xmax - padding);
+
+            body.position = new Vector2(newX, body.position.y);
+
+           
 
 
         }
