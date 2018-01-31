@@ -1,14 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LearnProgrammingAcademy.Utils; // using the name space for utils class
 
 
 namespace LearnProgrammingAcademy.AstroAssault
 {
 
-
-
-    public class PointSpawner : MonoBehaviour{
+        public class PointSpawner : MonoBehaviour{
 
         //Better to have a const name instead of hard coding a string
         private const string SPAWN_METHOD_NAME = "Spawn";
@@ -31,6 +30,7 @@ namespace LearnProgrammingAcademy.AstroAssault
 
 
         private IList<SpawnPoint> spawnPoints; // declared as interface so it will be converted to List
+        private Stack<SpawnPoint> pointsToSpawn; // Stack declared for points to spawn
         private GameObject enemiesParent;
 
 
@@ -49,11 +49,17 @@ namespace LearnProgrammingAcademy.AstroAssault
                 enemiesParent = new GameObject(ENEMIES_PARENT_NAME); 
             }
 
-
+            ShuffleSpawnPoints();
             SpawnRepeating();
         }
 
         // == Private Methods ==
+
+        private void ShuffleSpawnPoints()
+        {
+            pointsToSpawn = ListUtils.CreateShuffledStack(spawnPoints);
+        }
+
         private void SpawnRepeating()
         {
             InvokeRepeating(SPAWN_METHOD_NAME,spawnDelay,spawnInterval);
@@ -62,17 +68,24 @@ namespace LearnProgrammingAcademy.AstroAssault
       
         //Spawn Function
         private void Spawn(){
+            
+            //Check to see if pointsToSpawn is 0
+            if(pointsToSpawn.Count == 0)
+            {
+                ShuffleSpawnPoints();
+            }
 
-            // Spawn will be random and it will only spawn with the amount of spawners
-            // that are available
-            var randomIndex = Random.Range(0, spawnPoints.Count);
-            var SpawnPoint = spawnPoints[randomIndex]; // The spawnpoints will be 
+            var spawnPoint = pointsToSpawn.Pop();//Removes element from stack and returns to top
 
             var enemy = Instantiate(enemyPrefab,enemiesParent.transform); // Instantiate the Enemy
                                                          // Parent of enemy is now "enemies parent"
 
             //Enemy will instantiate at the spawnpoints position
-            enemy.transform.position = SpawnPoint.transform.position; 
+            enemy.transform.position = spawnPoint.transform.position;
+
+            //Falling behaviour will be based off the enemies Start Speed
+            var fallingBehaviour = GetComponent<FallingBehaviour>();
+            fallingBehaviour.Speed = enemyStartSpeed;
 
         }
 

@@ -9,11 +9,14 @@ namespace LearnProgrammingAcademy.AstroAssault
 
 
         // == fields ==
-        [SerializeField]
         private float speed = 2.0f;
-
-
         private Rigidbody2D body;
+
+        // == properties ==
+        public float Speed {
+            get { return speed;}
+            set { speed = value;}
+            }
 
 
         // == messages ==
