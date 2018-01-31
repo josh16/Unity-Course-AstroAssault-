@@ -84,8 +84,10 @@ namespace LearnProgrammingAcademy.AstroAssault
             enemy.transform.position = spawnPoint.transform.position;
 
             //Falling behaviour will be based off the enemies Start Speed
-            var fallingBehaviour = GetComponent<FallingBehaviour>();
+            var fallingBehaviour = enemy.GetComponent<FallingBehaviour>(); // enemy will getComponent
             fallingBehaviour.Speed = enemyStartSpeed;
+
+
 
         }
 
