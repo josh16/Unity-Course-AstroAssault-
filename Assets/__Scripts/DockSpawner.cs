@@ -10,7 +10,9 @@ namespace LearnProgrammingAcademy.AstroAssault
     {
 
         // == Constants ==
-        private const string SPAWN_METHOD_NAME = "Spawn";
+        //It's better to use a const for a string name instead of hard coding name. This can
+        // be used once again later in the code
+        private const string SPAWN_METHOD_NAME = "Spawn"; 
         private const string ENEMIES_PARENT_NAME = "Enemies"; 
 
         //== Fields ==
@@ -18,32 +20,43 @@ namespace LearnProgrammingAcademy.AstroAssault
         private Enemy enemyPrefab;
 
         [SerializeField]
-        private float spawnInterval = 1.6f;
+        private float spawnInterval = 1.6f; // SpawnInterval time for enemies
 
         [SerializeField]
-        private float spawnDelay = 0.2f;
+        private float spawnDelay = 0.2f; // Spawn time in between enemies
 
         [SerializeField]
-        private float enemyStartSpeed = 2.0f;
+        private float enemyStartSpeed = 2.0f; // Enemies starting speed
 
-        private GameObject enemiesParent; //reference to GameObject
+        [SerializeField]
+        [Header("Waypoints")]
+        private Transform[] wayPoints; // Array of all the waypoints
+
+        private GameObject enemiesParent; //reference to Enemies Parent GameObject
+
 
         //== Messages == 
         private void Start(){
 
             enemiesParent = GameObject.Find(ENEMIES_PARENT_NAME); // looks for object with name
 
+            //What happens if it doesn't exist? well we create a check
+
             //Check to see if parent is null and if so, object will be created
             if(!enemiesParent){
                 Debug.Log($"{ENEMIES_PARENT_NAME}object not found, creating a new one");
+                enemiesParent = new GameObject(ENEMIES_PARENT_NAME); 
             }
         
             SpawnRepeating(); // SpawnRepeating function will get called here
         }
 
+
+        //This function will invokeRepeating calling the Method name in string
+        // 
         private void SpawnRepeating()
         {
-            InvokeRepeating(SPAWN_METHOD_NAME,spawnDelay,spawnInterval);
+            InvokeRepeating(SPAWN_METHOD_NAME,spawnDelay,spawnInterval); 
         }
 
         private void Spawn()
@@ -56,6 +69,17 @@ namespace LearnProgrammingAcademy.AstroAssault
             // we can now access the speed property and set that as enemystartSpeed;
             var fallingBehaviour = enemy.GetComponent<FallingBehaviour>();
             fallingBehaviour.Speed = enemyStartSpeed;
+
+            //Get the Waypoint follower script
+            var follower = enemy.GetComponent<WayPointFollower>();
+            follower.Speed = enemyStartSpeed;
+
+
+            //The enemy will
+            foreach(var waypoint in wayPoints)
+            {
+                follower.Addwaypoint(waypoint.position);
+            }
 
         }
 
