@@ -81,9 +81,15 @@ namespace LearnProgrammingAcademy.AstroAssault
             }
 
             var dock = docksToSpawn.Pop(); //Remove the element from top of the list
+
+            //If Dock is full, release an enemy(smallship)
+            if(dock.IsFull())
+            {
+                dock.Release();
+            }
+
             var slot = dock.NextFreeSlot(); // This will check the next free slot 
 
-            //if slot is equal to null...
             if(!slot) 
             {
                 return; // We want to return because the slot is full, 

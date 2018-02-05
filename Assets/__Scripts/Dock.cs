@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -8,6 +9,8 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
     public class Dock : MonoBehaviour
     {
+        // == CONSTANTS ==
+        private const string ENEMIES_PARENT_NAME = "Enemies";
 
         // == Fields ==
         [SerializeField] // Expose to editor
@@ -29,13 +32,22 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
         [SerializeField]
         private DockSlot[] slots; // DockSlots Array 
+        private GameObject enemiesParent;
 
-
-        //== Messages ==
+        //== MESSAGES ==
         private void Start()
         {
             //Intialize the Array for Docks 
             slots = new DockSlot[slotCount];
+
+           //Check
+            enemiesParent = GameObject.Find(ENEMIES_PARENT_NAME);
+            if(!enemiesParent)
+            {
+                Debug.Log($"{ENEMIES_PARENT_NAME} object not found, creating new object!");
+                enemiesParent = new GameObject(ENEMIES_PARENT_NAME); 
+            }
+
             CreateSlots();
         }
 
@@ -47,7 +59,29 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
         }
 
-        //== public void Methods ==
+        //== PUBLIC METHODS ==
+        //This Method will release all of enemies IF the stack is full
+        public void Release()
+        {
+            var firstSlot = slots.First();
+            Debug.Log($"Releasing enemy at slot = {firstSlot.name}");
+            var enemyAtFirstSlot = firstSlot.GetComponentInChildren<Enemy>();
+
+            //Reparent to enemies parent
+            enemyAtFirstSlot.transform.parent = enemiesParent.transform;
+
+            //Enable falling 
+            var fallingBehaviour = enemyAtFirstSlot.GetComponent<FallingBehaviour>();
+            fallingBehaviour.enabled = true; // Setting fallingBehaviour script to true
+
+            RepositionEnemies();
+        }
+
+        //Checks to see if the slots are full
+        public bool IsFull()
+        {
+            return NextFreeSlot() == null;
+        }
 
         //Checks to see the next free slot
         // If slot is empty, return slot otherwise return null
@@ -61,7 +95,7 @@ namespace LearnProgrammingAcademy.AstroAssault{
                     return slot;
                 }
             }
-            //otherwise..
+
             return null;
         }
 
@@ -74,7 +108,30 @@ namespace LearnProgrammingAcademy.AstroAssault{
         }
 
 
-        //== Private Methods == 
+        //== PRIVATE METHODS == 
+        private void RepositionEnemies()
+        {
+            //starting from 1 since first slot is empty(released or dead enemy
+            for (int i = 1; i < slots.Length; i++)
+            {
+                var previousSlot = slots[i - 1];
+                var currentSlot = slots[i];
+
+                if (previousSlot.IsEmpty() && !currentSlot.IsEmpty())
+                {
+                    var enemyAtCurrentSlot = currentSlot.GetComponentInChildren<WayPointFollower>();
+
+                    //Reparent to previous slot
+                    enemyAtCurrentSlot.transform.parent = previousSlot.transform;
+
+                    //Add Waypoint
+                    enemyAtCurrentSlot.Addwaypoint(previousSlot.transform.position);
+
+
+                }
+
+            }
+        }
         private void CreateSlots()
         {
             //Calculate starting position
@@ -90,7 +147,7 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
             //Instantiate dock slots
             for (int i = 0; i < slotCount; i++)
-            {
+            { 
                 DockSlot slot = Instantiate(slotPrefab,transform); // all slots will be children of dock object
                 float yPosition = startY + i * slotSpacing;
 
