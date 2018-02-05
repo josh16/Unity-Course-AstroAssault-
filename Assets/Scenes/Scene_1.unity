@@ -689,7 +689,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1132654794}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalPosition: {x: 0, y: 5.98, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2096480469}
@@ -711,12 +711,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 114667339053341716, guid: 024f9afdf44804f46bfcba3eb231ce3d,
     type: 2}
-  spawnInterval: 1.6
+  spawnInterval: 0.2
   spawnDelay: 0.2
   enemyStartSpeed: 2
   wayPoints:
   - {fileID: 360168795}
-  - {fileID: 1285000825}
 --- !u!1 &1285000824
 GameObject:
   m_ObjectHideFlags: 0

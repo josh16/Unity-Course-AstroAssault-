@@ -26,10 +26,6 @@ namespace LearnProgrammingAcademy.AstroAssault
             set { speed = value; }
         }
 
-
-
-
-
         // == Messages==
         private void Start()
         {
@@ -37,8 +33,7 @@ namespace LearnProgrammingAcademy.AstroAssault
             NextWaypoint();
         }
 
-
-        //Use fixed updates because we are using physics
+         //Use fixed updates because we are using physics
         private void FixedUpdate()
         {
             if(HasMorePoints())

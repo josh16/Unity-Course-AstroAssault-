@@ -16,6 +16,13 @@ namespace LearnProgrammingAcademy.AstroAssault
         }
 
 
+        // == Public Methods
+       public bool IsEmpty()
+        {
+            //This will check if the transform object is empty
+            return transform.childCount == 0; 
+        }
+
 
     }
 }

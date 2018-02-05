@@ -6,7 +6,8 @@ using UnityEngine;
 
 namespace LearnProgrammingAcademy.AstroAssault{
 
-    public class Dock : MonoBehaviour{
+    public class Dock : MonoBehaviour
+    {
 
         // == Fields ==
         [SerializeField] // Expose to editor
@@ -16,7 +17,7 @@ namespace LearnProgrammingAcademy.AstroAssault{
         private float height = 3.0f;
 
         [SerializeField]
-        [Range(1,15)]// This range will represent how many enemies that will be in 1 slot itself
+        [Range(1, 15)]// This range will represent how many enemies that will be in 1 slot itself
         private int slotCount = 5;
 
         [SerializeField]
@@ -39,10 +40,37 @@ namespace LearnProgrammingAcademy.AstroAssault{
         }
 
 
-        private void OnDrawGizmos(){
+        private void OnDrawGizmos()
+        {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireCube(transform.position,new Vector3(width,height));
+            Gizmos.DrawWireCube(transform.position, new Vector3(width, height));
 
+        }
+
+        //== public void Methods ==
+
+        //Checks to see the next free slot
+        // If slot is empty, return slot otherwise return null
+        public DockSlot NextFreeSlot()
+        {
+            ///returns something
+            foreach(var slot in slots)
+            {
+                if(slot.IsEmpty())
+                {
+                    return slot;
+                }
+            }
+            //otherwise..
+            return null;
+        }
+
+        //This will be an EntryPoint for the Small ship
+        public Vector3 GetEntryPoint()
+        {
+            int diff = slotCount /2 + 1; //+1 since we want to be above the dock
+            float positionY = transform.position.y + slotSpacing * diff;
+            return new Vector3(transform.position.x, positionY);
         }
 
 
@@ -50,7 +78,7 @@ namespace LearnProgrammingAcademy.AstroAssault{
         private void CreateSlots()
         {
             //Calculate starting position
-            int halfCount = slotCount / 2;
+            int halfCount = slotCount / 2 ;
             float startY = transform.position.y - slotSpacing * halfCount;
 
            
