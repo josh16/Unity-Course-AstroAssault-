@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using LearnProgrammingAcademy.AstroAssault.Utils;
 
 
 
@@ -9,10 +10,7 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
     public class Dock : MonoBehaviour
     {
-        // == CONSTANTS ==
-        private const string ENEMIES_PARENT_NAME = "Enemies";
-
-        // == Fields ==
+       // == Fields ==
         [SerializeField] // Expose to editor
         private float width = 0.8f;
 
@@ -41,11 +39,11 @@ namespace LearnProgrammingAcademy.AstroAssault{
             slots = new DockSlot[slotCount];
 
            //Check
-            enemiesParent = GameObject.Find(ENEMIES_PARENT_NAME);
+            enemiesParent = GameObject.Find(ParentNames.ENEMIES_PARENT_NAME);
             if(!enemiesParent)
             {
-                Debug.Log($"{ENEMIES_PARENT_NAME} object not found, creating new object!");
-                enemiesParent = new GameObject(ENEMIES_PARENT_NAME); 
+                Debug.Log($"{ParentNames.ENEMIES_PARENT_NAME} object not found, creating new object!");
+                enemiesParent = new GameObject(ParentNames.ENEMIES_PARENT_NAME); 
             }
 
             CreateSlots();
