@@ -19,6 +19,7 @@ namespace LearnProgrammingAcademy.AstroAssault.Utils
         public const string ENEMIES_PARENT_NAME = "Enemies";
         public const string SPAWN_METHOD_NAME = "Spawn";
         public const string BULLETS_PARENT_NAME = "Bullets";
+        public const string EXPLOSIONS_PARENT_NAME = "Explosions";
 
 
     }
