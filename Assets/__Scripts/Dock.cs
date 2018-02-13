@@ -49,6 +49,11 @@ namespace LearnProgrammingAcademy.AstroAssault{
             CreateSlots();
         }
 
+        //Update Method
+        private void Update()
+        {
+            RepositionEnemies();
+        }
 
         private void OnDrawGizmos()
         {
@@ -124,7 +129,6 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
                     //Add Waypoint
                     enemyAtCurrentSlot.Addwaypoint(previousSlot.transform.position);
-
 
                 }
 

@@ -12,7 +12,7 @@ namespace LearnProgrammingAcademy.AstroAssault
        
         [SerializeField]
         [Header("Waypoints")]
-        private Transform[] wayPoints; // Array of all the waypoints
+        private Transform[] wayPoints; //Array of all the waypoints
         private IList<Dock> docks;
         private Stack<Dock> docksToSpawn;
 
