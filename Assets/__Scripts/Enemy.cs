@@ -33,6 +33,7 @@ namespace LearnProgrammingAcademy.AstroAssault
         {
             var bullet = collider.GetComponent<Bullet>();
             var ground = collider.GetComponent<Ground>();
+            var player = collider.GetComponent<Player>();
 
             //If colliders with "Bullet" which will be the Bullet script attached to a GameObject..
             if(bullet)
@@ -49,7 +50,13 @@ namespace LearnProgrammingAcademy.AstroAssault
                 SpawnExplosion(crashExplosionPrefab);
                 Destroy(gameObject); // Destroy enemy gameobject
                 Debug.Log("Enemy hit ground!");
-             }
+            } 
+              else if(player)
+            {
+                player.Die(); // call player Die Method
+                SpawnExplosion(hitExplosionPrefab);
+                Destroy(gameObject); // destroy enemy gameObject(the object this component is attached too)
+            }
         }
 
         //== Private methods == 
