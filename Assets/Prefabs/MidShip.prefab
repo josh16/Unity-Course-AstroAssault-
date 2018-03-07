@@ -143,6 +143,7 @@ MonoBehaviour:
     type: 2}
   crashExplosionPrefab: {fileID: 1498831718036282, guid: 5883c11afce574dd0ac649d51a8897bc,
     type: 2}
+  scoreValue: 100
 --- !u!114 &114877239761956268
 MonoBehaviour:
   m_ObjectHideFlags: 1

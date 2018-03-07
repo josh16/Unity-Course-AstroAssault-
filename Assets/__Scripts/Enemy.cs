@@ -14,11 +14,24 @@ namespace LearnProgrammingAcademy.AstroAssault
         [SerializeField]
         private GameObject crashExplosionPrefab;
 
+        [SerializeField]
+        private int scoreValue = 10;
+
         private GameObject explosionsParent;
 
 
-        // == Messages ==
+        // == properties == 
+        public int ScoreValue{
+            get { return scoreValue; } // read only
 
+        }
+
+        // == Events ==
+        public delegate void EnemyKilled(Enemy enemy); // Delegate
+        public static event EnemyKilled EnemyKilledEvent; // Event
+
+
+        // == Messages ==
         private void Start()
         {
             explosionsParent = GameObject.Find(ParentNames.EXPLOSIONS_PARENT_NAME);
@@ -38,6 +51,7 @@ namespace LearnProgrammingAcademy.AstroAssault
             //If colliders with "Bullet" which will be the Bullet script attached to a GameObject..
             if(bullet)
             {
+                PublishEnemyKilledEvent(); // call this event
                 SpawnExplosion(hitExplosionPrefab);
                 //Destroy the bullet Game Object
                 Destroy(bullet.gameObject);
@@ -66,5 +80,13 @@ namespace LearnProgrammingAcademy.AstroAssault
             explosionGameObject.transform.position = transform.position;
         }
 
+        //Event Method
+        private void PublishEnemyKilledEvent()
+        {
+            EnemyKilledEvent?.Invoke(this);
+
+            // (this) keyword refers to the current instant
+            // the (?) is the  null check operator
+        }
     }
 }
