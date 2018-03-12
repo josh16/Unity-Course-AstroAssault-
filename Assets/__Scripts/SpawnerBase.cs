@@ -22,9 +22,12 @@ namespace LearnProgrammingAcademy.AstroAssault
         [SerializeField]
         protected float enemyStartSpeed = 2.0f; //  starting speed
 
+        [SerializeField]
+        private bool SpawnOnStart;
+
         protected GameObject enemiesParent; //reference to  Parent GameObject
 
-        //= MESSAGES ==
+        //= Messages ==
         protected virtual void Start()
         {
 
@@ -39,17 +42,27 @@ namespace LearnProgrammingAcademy.AstroAssault
                 enemiesParent = new GameObject(ParentNames.ENEMIES_PARENT_NAME);
             }
            
-            SpawnRepeating(); // SpawnRepeating function will get called here
+            if(SpawnOnStart){
+                EnableSpawning(); 
+            }
+
         }
 
-        // == ABSTRACT METHODS == 
+        // == Abstract Methods == 
         protected abstract void Spawn();
 
-        // == PRIVATE MESSAGES == 
-        private void SpawnRepeating()
+        // == Public Methods
+        public void EnableSpawning()
         {
             InvokeRepeating(SPAWN_METHOD_NAME, spawnDelay, spawnInterval);
         }
+
+        public void DisableSpawning(){
+            CancelInvoke(SPAWN_METHOD_NAME);
+        }
+
+        // == Private Messages == 
+
 
 
 

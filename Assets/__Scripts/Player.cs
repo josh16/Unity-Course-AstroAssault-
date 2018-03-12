@@ -28,6 +28,17 @@ namespace LearnProgrammingAcademy.AstroAssault
         private Vector3 startPoisiton;
         private GameObject explosionsParent;
 
+        // == Events == 
+        public delegate void LostLifeDelegate(int livesLeft);
+        public static event LostLifeDelegate LostLifeEvent;
+
+
+        // == Properties == 
+        public int Lives
+        {
+            get { return lives; }
+        }
+
         // == Messages ==
         private void Start()
         {
@@ -53,6 +64,11 @@ namespace LearnProgrammingAcademy.AstroAssault
         public void Die(){
             StartCoroutine(DieCoroutine());//Call the coroutine
         }
+         
+        // == Event Methods ==
+        private void PublishLostLifeEvent(){
+            LostLifeEvent?.Invoke(lives);
+        }
 
 
         //== Private Methods == 
@@ -66,6 +82,8 @@ namespace LearnProgrammingAcademy.AstroAssault
             explosionGameObject.transform.position = transform.position;
 
             lives--; //live = lives -1
+
+            PublishLostLifeEvent();
 
             yield return new WaitForSeconds(1.5f);
 
