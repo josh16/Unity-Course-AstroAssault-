@@ -27,6 +27,10 @@ namespace LearnProgrammingAcademy.AstroAssault
 
         protected GameObject enemiesParent; //reference to  Parent GameObject
 
+        // == Events ==
+        public delegate void EnemySpawnedDelegate();
+        public static event EnemySpawnedDelegate EnemySpawnedEvent;
+
         //= Messages ==
         protected virtual void Start()
         {
@@ -64,6 +68,10 @@ namespace LearnProgrammingAcademy.AstroAssault
         // == Private Messages == 
 
 
+        // == Event Methods ==
+        protected void PublishEnemySpawnedEvent() {
+            EnemySpawnedEvent?.Invoke(); // Publishing the event
+        }
 
 
     }

@@ -81,7 +81,8 @@ namespace LearnProgrammingAcademy.AstroAssault
             follower.Addwaypoint(dockEntry);
             follower.Addwaypoint(slot.transform.position);
 
-
+            // publish spawn event
+            PublishEnemySpawnedEvent();
         }
 
     }
