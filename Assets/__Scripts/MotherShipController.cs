@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace LearnProgrammingAcademy.AstroAssault{
 
@@ -12,6 +13,12 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
         // == Fields == 
         private int enemyCountPerWave = 20;
+
+        [SerializeField]
+        private Text waveNumberText;
+
+        [SerializeField]
+        private Text remainingEnemyCountText;
 
         private int remainingEnemyCount;
         private int waveNumber; // initialize to 0 by default
@@ -41,6 +48,7 @@ namespace LearnProgrammingAcademy.AstroAssault{
         // == Event Methods
         private void OnEnemySpawned(){
             remainingEnemyCount--; // Reduce enemyCount
+            Updatetext();
             Debug.Log($"remainingEnemyCount= {remainingEnemyCount}");
         
             if(remainingEnemyCount == 0){
@@ -52,11 +60,18 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
 
         // == Private Methods == 
-        private void EnableSpawning(){
+        private void NextWave(){
             waveNumber++; // wave number goes up by 1, wave starts
             remainingEnemyCount = enemyCountPerWave; // 'X' amount of enemies when the wave starts
-            Debug.Log($"WaveNumber:{waveNumber}");
+            Updatetext();
+        }
 
+        private void Updatetext(){
+            waveNumberText.text = waveNumber.ToString("000");
+            remainingEnemyCountText.text = remainingEnemyCount.ToString("000");
+        }
+
+        private void EnableSpawning(){
             foreach( var spawner in spawners){
                 spawner.EnableSpawning();
             }
@@ -72,6 +87,7 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
         // == Animator Events ==
         private void AnimatorEnableSpawning(){
+            NextWave();
             EnableSpawning();
         }
 
