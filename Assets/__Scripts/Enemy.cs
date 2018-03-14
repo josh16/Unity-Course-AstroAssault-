@@ -18,9 +18,21 @@ namespace LearnProgrammingAcademy.AstroAssault
         private int scoreValue = 10;
 
         private GameObject explosionsParent;
+        private AudioSource audioSource;
 
 
-        // == properties == 
+        // == Audio Fields == 
+        [SerializeField]
+        private AudioClip spawnClip;
+
+        [SerializeField]
+        private AudioClip hitClip;
+
+        [SerializeField]
+        private AudioClip crashClip;
+
+
+        // == Properties == 
         public int ScoreValue{
             get { return scoreValue; } // read only
 
@@ -34,12 +46,15 @@ namespace LearnProgrammingAcademy.AstroAssault
         // == Messages ==
         private void Start()
         {
+            audioSource = GetComponent<AudioSource>();
             explosionsParent = GameObject.Find(ParentNames.EXPLOSIONS_PARENT_NAME);
 
             //Check
             if(!explosionsParent){
                 explosionsParent = new GameObject(ParentNames.EXPLOSIONS_PARENT_NAME);
             }
+
+            audioSource.PlayOneShot(spawnClip);
         }
 
         private void OnTriggerEnter2D(Collider2D collider)
@@ -51,6 +66,7 @@ namespace LearnProgrammingAcademy.AstroAssault
             //If colliders with "Bullet" which will be the Bullet script attached to a GameObject..
             if(bullet)
             {
+                audioSource.PlayOneShot(hitClip);
                 PublishEnemyKilledEvent(); // call this event
                 SpawnExplosion(hitExplosionPrefab);
                 //Destroy the bullet Game Object
@@ -61,12 +77,14 @@ namespace LearnProgrammingAcademy.AstroAssault
                 Debug.Log("Enemy Destroyed!");
             } 
                 else if(ground){
+                audioSource.PlayOneShot(crashClip);
                 SpawnExplosion(crashExplosionPrefab);
                 Destroy(gameObject); // Destroy enemy gameobject
                 Debug.Log("Enemy hit ground!");
             } 
               else if(player)
             {
+                audioSource.PlayOneShot(crashClip);
                 player.Die(); // call player Die Method
                 SpawnExplosion(hitExplosionPrefab);
                 Destroy(gameObject); // destroy enemy gameObject(the object this component is attached too)
