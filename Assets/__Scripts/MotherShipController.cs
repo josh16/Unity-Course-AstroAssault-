@@ -20,6 +20,12 @@ namespace LearnProgrammingAcademy.AstroAssault{
         [SerializeField]
         private Text remainingEnemyCountText;
 
+        [SerializeField]
+        private AudioClip movingClip;
+
+        [SerializeField]
+        private AudioClip spawnClip;
+
         private int remainingEnemyCount;
         private int waveNumber; // initialize to 0 by default
         private SpawnerBase[] spawners;
@@ -27,11 +33,16 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
         private Animator animator;
 
+        private SoundController soundController;
+
         // == Messages == 
         private void Start()
         {
             spawners = FindObjectsOfType<SpawnerBase>();
             animator = GetComponent<Animator>();
+            soundController = SoundController.FindSoundController();
+            soundController?.Play(movingClip);
+
             Debug.Log($"Spawners found = {spawners.Length}"); 
         }
 
@@ -53,6 +64,7 @@ namespace LearnProgrammingAcademy.AstroAssault{
             if(remainingEnemyCount == 0){
                 DisableSpawning();
                 animator.SetTrigger(NEXT_WAVE_TRIGGER_NAME);
+                soundController?.Play(movingClip);
             }
 
         }
@@ -83,11 +95,11 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
         }
 
-
         // == Animator Events ==
         private void AnimatorEnableSpawning(){
             NextWave();
             EnableSpawning();
+            soundController?.Play(spawnClip);
         }
 
 

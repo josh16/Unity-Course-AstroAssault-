@@ -101,6 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveNumberText: {fileID: 0}
   remainingEnemyCountText: {fileID: 0}
+  movingClip: {fileID: 8300000, guid: 7b1775193026d4a76b7ca591ad4c3ee6, type: 3}
+  spawnClip: {fileID: 8300000, guid: 5ab16c720698e455185d0950db00027b, type: 3}
 --- !u!212 &212126754747828124
 SpriteRenderer:
   m_ObjectHideFlags: 1

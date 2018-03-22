@@ -13,17 +13,23 @@ namespace LearnProgrammingAcademy.AstroAssault
         private AudioSource audiosource;
 
         // == messages ==
-        private void Start()
+        private void Awake()
         {
             audiosource = GetComponent<AudioSource>();
-
         }
-
 
         // == Public methods ==
         public void PlayOneShot(AudioClip clip){
             if(clip){
                 audiosource.PlayOneShot(clip);
+            }
+        }
+
+        public void Play(AudioClip clip){
+            if(clip){
+                audiosource.clip = clip;
+                audiosource.loop = true;
+                audiosource.Play();
             }
         }
 
