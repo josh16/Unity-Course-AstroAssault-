@@ -49,7 +49,6 @@ namespace LearnProgrammingAcademy.AstroAssault{
         private void OnEnemySpawned(){
             remainingEnemyCount--; // Reduce enemyCount
             Updatetext();
-            Debug.Log($"remainingEnemyCount= {remainingEnemyCount}");
         
             if(remainingEnemyCount == 0){
                 DisableSpawning();

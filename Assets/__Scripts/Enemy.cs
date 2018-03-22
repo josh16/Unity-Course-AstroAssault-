@@ -18,8 +18,7 @@ namespace LearnProgrammingAcademy.AstroAssault
         private int scoreValue = 10;
 
         private GameObject explosionsParent;
-        private AudioSource audioSource;
-
+        private SoundController soundController;
 
         // == Audio Fields == 
         [SerializeField]
@@ -46,15 +45,12 @@ namespace LearnProgrammingAcademy.AstroAssault
         // == Messages ==
         private void Start()
         {
-            audioSource = GetComponent<AudioSource>();
-            explosionsParent = GameObject.Find(ParentNames.EXPLOSIONS_PARENT_NAME);
+            explosionsParent = ParentUtils.FindExplosionsParent();
 
-            //Check
-            if(!explosionsParent){
-                explosionsParent = new GameObject(ParentNames.EXPLOSIONS_PARENT_NAME);
-            }
+            //Find SoundController
+            soundController = SoundController.FindSoundController();
 
-            audioSource.PlayOneShot(spawnClip);
+            PlayClip(spawnClip);
         }
 
         private void OnTriggerEnter2D(Collider2D collider)
@@ -66,7 +62,7 @@ namespace LearnProgrammingAcademy.AstroAssault
             //If colliders with "Bullet" which will be the Bullet script attached to a GameObject..
             if(bullet)
             {
-                audioSource.PlayOneShot(hitClip);
+                PlayClip(hitClip);
                 PublishEnemyKilledEvent(); // call this event
                 SpawnExplosion(hitExplosionPrefab);
                 //Destroy the bullet Game Object
@@ -77,14 +73,14 @@ namespace LearnProgrammingAcademy.AstroAssault
                 Debug.Log("Enemy Destroyed!");
             } 
                 else if(ground){
-                audioSource.PlayOneShot(crashClip);
+                PlayClip(crashClip);
                 SpawnExplosion(crashExplosionPrefab);
                 Destroy(gameObject); // Destroy enemy gameobject
                 Debug.Log("Enemy hit ground!");
             } 
               else if(player)
             {
-                audioSource.PlayOneShot(crashClip);
+                PlayClip(crashClip);
                 player.Die(); // call player Die Method
                 SpawnExplosion(hitExplosionPrefab);
                 Destroy(gameObject); // destroy enemy gameObject(the object this component is attached too)
@@ -92,6 +88,18 @@ namespace LearnProgrammingAcademy.AstroAssault
         }
 
         //== Private methods == 
+        private void PlayClip(AudioClip clip){
+            /*
+            if(soundController){
+                soundController.PlayOneShot(clip);
+                }
+             }
+            */
+        
+            // A faster way..
+            soundController?.PlayOneShot(clip);
+        }
+
         private void SpawnExplosion(GameObject explosionPrefab)
         {
             GameObject explosionGameObject = Instantiate(explosionPrefab, explosionsParent.transform);

@@ -37,15 +37,7 @@ namespace LearnProgrammingAcademy.AstroAssault{
         {
             //Intialize the Array for Docks 
             slots = new DockSlot[slotCount];
-
-           //Check
-            enemiesParent = GameObject.Find(ParentNames.ENEMIES_PARENT_NAME);
-            if(!enemiesParent)
-            {
-                Debug.Log($"{ParentNames.ENEMIES_PARENT_NAME} object not found, creating new object!");
-                enemiesParent = new GameObject(ParentNames.ENEMIES_PARENT_NAME); 
-            }
-
+            enemiesParent = ParentUtils.FindEnemiesParent();
             CreateSlots();
         }
 

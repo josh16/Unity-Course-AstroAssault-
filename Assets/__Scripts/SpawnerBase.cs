@@ -35,17 +35,8 @@ namespace LearnProgrammingAcademy.AstroAssault
         protected virtual void Start()
         {
 
-            enemiesParent = GameObject.Find(ParentNames.ENEMIES_PARENT_NAME); // looks for object with name
+            enemiesParent = ParentUtils.FindEnemiesParent();
 
-            //What happens if it doesn't exist? well we create a check
-
-            //Check to see if parent is null and if so, object will be created
-            if (!enemiesParent)
-            {
-                Debug.Log($"{ParentNames.ENEMIES_PARENT_NAME}object not found, creating a new one");
-                enemiesParent = new GameObject(ParentNames.ENEMIES_PARENT_NAME);
-            }
-           
             if(SpawnOnStart){
                 EnableSpawning(); 
             }

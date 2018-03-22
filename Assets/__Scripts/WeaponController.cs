@@ -21,17 +21,18 @@ namespace LearnProgrammingAcademy.AstroAssault{
         private float firingRate = 0.4f;
 
         private GameObject bulletsParent; // We use this to spawn the bullets to keep hiearchary clean
+        private SoundController soundController;
+
+        // == Audio Fields == 
+        [SerializeField]
+        private AudioClip shootClip;
 
         // == Messages ==
         private void Start()
         {
-            bulletsParent = GameObject.Find(ParentNames.BULLETS_PARENT_NAME);    
+            bulletsParent = ParentUtils.FindBulletsParent();
+            soundController = SoundController.FindSoundController();
 
-            //Check statement
-            if(!bulletsParent)
-            {
-                bulletsParent = new GameObject(ParentNames.BULLETS_PARENT_NAME);
-            }
         }
 
         private void Update()
@@ -50,6 +51,7 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
         // == private methods == 
         private void Shoot(){
+            soundController?.PlayOneShot(shootClip);
             Bullet bullet = Instantiate(bulletPrefab, bulletsParent.transform);
             bullet.transform.position = transform.position;
 

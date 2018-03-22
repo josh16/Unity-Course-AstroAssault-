@@ -18,6 +18,10 @@ namespace LearnProgrammingAcademy.AstroAssault
         [SerializeField]
         private GameObject explosionPrefab;
 
+        // == Audio Fields == 
+        [SerializeField]
+        private AudioClip respawnClip;
+
         //Reference 4 components here on the player
         // We want to deactivate these 4 components once the player dies
         private SpriteRenderer spriteRenderer;
@@ -27,6 +31,8 @@ namespace LearnProgrammingAcademy.AstroAssault
 
         private Vector3 startPoisiton;
         private GameObject explosionsParent;
+        private SoundController soundController;
+
 
         // == Events == 
         public delegate void LostLifeDelegate(int livesLeft);
@@ -48,15 +54,11 @@ namespace LearnProgrammingAcademy.AstroAssault
             playerController = GetComponent<PlayerController>();
             weaponController = GetComponent<WeaponController>();
 
-
             //Remember the start position
             startPoisiton = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
-            explosionsParent = GameObject.Find(ParentNames.EXPLOSIONS_PARENT_NAME);
-
-            //Check
-            if (!explosionsParent)
-                explosionsParent = new GameObject(ParentNames.EXPLOSIONS_PARENT_NAME);
+            soundController = SoundController.FindSoundController();
+            explosionsParent = ParentUtils.FindExplosionsParent();
             
         }
 
@@ -95,8 +97,10 @@ namespace LearnProgrammingAcademy.AstroAssault
         }
 
         private void Respawn(){
+            soundController?.PlayOneShot(respawnClip);
             transform.position = startPoisiton;
             EnableCompnents();
+          
         }
 
         private void EnableCompnents() { 
@@ -112,6 +116,7 @@ namespace LearnProgrammingAcademy.AstroAssault
             weaponController.enabled = enabled;
 
         }
+
 
     }
 }

@@ -39,7 +39,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1638714043807590}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -173,6 +173,7 @@ MonoBehaviour:
     type: 2}
   bulletSpeed: 5
   firingRate: 0.4
+  shootClip: {fileID: 8300000, guid: 2874985f50d3542768dd37d6fa172104, type: 3}
 --- !u!114 &114845671056891590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -187,6 +188,7 @@ MonoBehaviour:
   lives: 4
   explosionPrefab: {fileID: 1200148316281658, guid: 237bf635191334c48af4d8814bd94298,
     type: 2}
+  respawnClip: {fileID: 8300000, guid: 7c4c9eaac90044e11b5865aa9985ce9a, type: 3}
 --- !u!212 &212425228700939712
 SpriteRenderer:
   m_ObjectHideFlags: 1
