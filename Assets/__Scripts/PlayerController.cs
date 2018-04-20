@@ -15,7 +15,6 @@ namespace LearnProgrammingAcademy.AstroAssault {
         [SerializeField]
         private float speed = 15;
 
-
         [SerializeField]
         private float xmin = -7.2f;
 
