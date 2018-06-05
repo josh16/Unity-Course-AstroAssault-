@@ -2,35 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using LearnProgrammingAcademy.AstroAssault.Utils;
+//using LearnProgrammingAcademy.AstroAssault.Utils;
+using LearnProgrammingAcademy.Utils;
+using LearnProgrammingAcademy.Generated;
 
 namespace LearnProgrammingAcademy.AstroAssault.Scene{
 
     public class PauseSceneController : MonoBehaviour{
        
-        // == fields ==
-        private GameController gameController;
-
-        // == messages == 
-        private void Start()
-        {
-            gameController = GameController.FindGameController();
-        }
-
         // == onClick events ==
         public void ResumeOnClick(){
-            gameController.UnPause();
-            SceneManager.UnloadSceneAsync(SceneNames.PAUSE);
+            GameUtils.UnPause();
+            SceneManager.UnloadSceneAsync(SceneNames.Pause);
         }
     
         public void PlayAgainOnClick(){ // Load Level again, restart it
-            gameController.UnPause();
-            SceneManager.LoadSceneAsync(SceneNames.LEVEL);
+            GameUtils.UnPause();
+            SceneManager.LoadSceneAsync(SceneNames.Level);
         }
 
         public void ExitToMenuOnClick(){  
-            gameController.UnPause();
-            SceneManager.LoadSceneAsync(SceneNames.MAIN_MENU);
+            GameUtils.UnPause();
+            SceneManager.LoadSceneAsync(SceneNames.MainMenu);
         }
     }
 } 

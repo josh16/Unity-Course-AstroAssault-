@@ -72,7 +72,6 @@ namespace LearnProgrammingAcademy.AstroAssault
             LostLifeEvent?.Invoke(lives);
         }
 
-
         //== Private Methods == 
         private IEnumerator DieCoroutine() {
             Debug.Log("DieCoroutine");

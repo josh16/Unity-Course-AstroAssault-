@@ -7,7 +7,7 @@ namespace LearnProgrammingAcademy.AstroAssault {
     public class PlayerController : MonoBehaviour
     {
         #region == Constants ==
-        private const string HORIZONTAL = "Horizontal";
+        private const string Horizontal = "Horizontal";
         private const string VERTICAL = "Vertical";
         #endregion
 
@@ -38,7 +38,7 @@ namespace LearnProgrammingAcademy.AstroAssault {
         //This function is called every fixed frame
         private void FixedUpdate()
         {
-            float horizontalMovement = Input.GetAxis(HORIZONTAL);
+            float horizontalMovement = Input.GetAxis(Horizontal);
 
             body.velocity = new Vector2(horizontalMovement * speed, 0f);
 

@@ -9,31 +9,19 @@ namespace LearnProgrammingAcademy.AstroAssault{
     public class MotherShipController : MonoBehaviour{
 
         // == Constants == 
-        private const string NEXT_WAVE_TRIGGER_NAME = "NextWave";
+        private const string NextWaveTriggerName = "NextWave";
 
         // == Fields == 
-        private int enemyCountPerWave = 20;
-
-        [SerializeField]
-        private Text waveNumberText;
-
-        [SerializeField]
-        private Text remainingEnemyCountText;
-
         [SerializeField]
         private AudioClip movingClip;
 
         [SerializeField]
         private AudioClip spawnClip;
 
-        private int remainingEnemyCount;
-        private int waveNumber; // initialize to 0 by default
         private SpawnerBase[] spawners;
-
-
         private Animator animator;
-
         private SoundController soundController;
+        private GameController gameController;
 
         // == Messages == 
         private void Start()
@@ -42,6 +30,7 @@ namespace LearnProgrammingAcademy.AstroAssault{
             animator = GetComponent<Animator>();
             soundController = SoundController.FindSoundController();
             soundController?.Play(movingClip);
+            gameController = GameController.FindGameController();
 
             Debug.Log($"Spawners found = {spawners.Length}"); 
         }
@@ -58,12 +47,11 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
         // == Event Methods
         private void OnEnemySpawned(){
-            remainingEnemyCount--; // Reduce enemyCount
-            Updatetext();
+            gameController.DecrementRemainingCount();
         
-            if(remainingEnemyCount == 0){
+            if(gameController.HasRemainingEnemies()){
                 DisableSpawning();
-                animator.SetTrigger(NEXT_WAVE_TRIGGER_NAME);
+                animator.SetTrigger(NextWaveTriggerName);
                 soundController?.Play(movingClip);
             }
 
@@ -71,18 +59,7 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
 
         // == Private Methods == 
-        private void NextWave(){
-            waveNumber++; // wave number goes up by 1, wave starts
-            remainingEnemyCount = enemyCountPerWave; // 'X' amount of enemies when the wave starts
-            Updatetext();
-        }
-
-        private void Updatetext(){
-            waveNumberText.text = waveNumber.ToString("000");
-            remainingEnemyCountText.text = remainingEnemyCount.ToString("000");
-        }
-
-        private void EnableSpawning(){
+      private void EnableSpawning(){
             foreach( var spawner in spawners){
                 spawner.EnableSpawning();
             }
@@ -97,11 +74,10 @@ namespace LearnProgrammingAcademy.AstroAssault{
 
         // == Animator Events ==
         private void AnimatorEnableSpawning(){
-            NextWave();
+            gameController.NextWave();
             EnableSpawning();
             soundController?.Play(spawnClip);
         }
-
 
     }
 }

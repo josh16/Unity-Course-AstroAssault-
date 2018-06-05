@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using LearnProgrammingAcademy.AstroAssault.Utils;
+using LearnProgrammingAcademy.Generated;
 
 namespace LearnProgrammingAcademy.AstroAssault.Scene{
     public class SplashScreenController : MonoBehaviour{
@@ -21,7 +21,7 @@ namespace LearnProgrammingAcademy.AstroAssault.Scene{
         // == private methods ==
         private IEnumerator LoadMainMenuCourotine(){
             yield return new WaitForSeconds(Duration);
-            SceneManager.LoadSceneAsync(SceneNames.MAIN_MENU);
+            SceneManager.LoadSceneAsync(SceneNames.MainMenu);
         }
 
 

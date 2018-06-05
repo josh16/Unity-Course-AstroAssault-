@@ -7,14 +7,30 @@ namespace LearnProgrammingAcademy.AstroAssault
 {
     public class GameController : MonoBehaviour
     {
-        //== fields == 
+        //== Fields == 
+        [SerializeField]
+        private int enemyCountPerWave = 200;
+
         [SerializeField]
         private Text scoreText;
 
-        private int score = 0;
+        [SerializeField]
+        private Text waveNumberText;
 
-        // == messages ==
-        // We need to subscribe and than unsubcribe the event
+        [SerializeField]
+        private Text remainingEnemyCountText;
+
+        private int score = 0;
+        private int remainingEnemyCount;
+        private int waveNumber; // initialize to 0 by default
+
+        // == Messages ==
+        private void Start()
+        {
+            remainingEnemyCount = enemyCountPerWave;
+            UpdateText();
+        }
+
         private void OnEnable()
         {
             Enemy.EnemyKilledEvent += OnEnemyKilled;
@@ -29,30 +45,50 @@ namespace LearnProgrammingAcademy.AstroAssault
         private void OnEnemyKilled(Enemy enemy){
             //throw new System.NotImplementedException();
             score += enemy.ScoreValue;
-            UpdateLabels();
+            UpdateText();
         }
 
-        // == public methods == 
-        public void Pause()
+        public void DecrementRemainingCount()
         {
-            Time.timeScale = 0f;
-            AudioListener.pause = true;
+            remainingEnemyCount--;
+            UpdateText();
         }
 
-        public void UnPause()
+        public bool HasRemainingEnemies()
         {
-            Time.timeScale = 1f;
-            AudioListener.pause = false;
+            return remainingEnemyCount <= 0;
+
         }
 
+        public void NextWave()
+        {
+            waveNumber++; // wave number goes up by 1, wave starts
+            remainingEnemyCount = enemyCountPerWave; // 'X' amount of enemies when the wave starts
+            UpdateText();
+
+        }
+
+
+        // == Public methods == 
+        public string GetScoreFormatted()
+        {
+            return score.ToString("000000");
+        }
+
+        public string GetWaveNumberFormatted()
+        {
+            return waveNumber.ToString("000");
+        }
 
         //== private methods ==
-        private void UpdateLabels(){
+        private void UpdateText(){
             // zeroes represent digit count
-            scoreText.text = score.ToString("000000");
+            scoreText.text = GetScoreFormatted();
+            waveNumberText.text = GetWaveNumberFormatted();
+            remainingEnemyCountText.text = remainingEnemyCount.ToString("000");
         }
 
-        // == static methods == 
+       // == static methods == 
         public static GameController FindGameController(){
             var gameController = FindObjectOfType<GameController>();
 

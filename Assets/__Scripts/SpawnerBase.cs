@@ -7,7 +7,7 @@ namespace LearnProgrammingAcademy.AstroAssault
     public abstract class SpawnerBase : MonoBehaviour
     {
         // == Constants ==
-        private const string SPAWN_METHOD_NAME = "Spawn";
+        private const string SpawnMethodName = "Spawn";
 
         //== Fields ==
         [SerializeField]
@@ -49,11 +49,11 @@ namespace LearnProgrammingAcademy.AstroAssault
         // == Public Methods
         public void EnableSpawning()
         {
-            InvokeRepeating(SPAWN_METHOD_NAME, spawnDelay, spawnInterval);
+            InvokeRepeating(SpawnMethodName, spawnDelay, spawnInterval);
         }
 
         public void DisableSpawning(){
-            CancelInvoke(SPAWN_METHOD_NAME);
+            CancelInvoke(SpawnMethodName);
         }
 
         // == Private Messages == 

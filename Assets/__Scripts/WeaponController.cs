@@ -8,7 +8,7 @@ namespace LearnProgrammingAcademy.AstroAssault{
     public class WeaponController : MonoBehaviour
     {
         // == Constant == 
-        private const string SHOOT_METHOD_NAME = "Shoot";
+        private const string ShootMethodName = "Shoot";
 
         // == Private Fields ==
         [SerializeField]
@@ -39,12 +39,12 @@ namespace LearnProgrammingAcademy.AstroAssault{
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                InvokeRepeating(SHOOT_METHOD_NAME,0f,firingRate);
+                InvokeRepeating(ShootMethodName,0f,firingRate);
             }
         
             if(Input.GetKeyUp(KeyCode.Space))
             {
-                CancelInvoke(SHOOT_METHOD_NAME);
+                CancelInvoke(ShootMethodName);
             }
            
         }

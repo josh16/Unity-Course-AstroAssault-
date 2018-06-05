@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using LearnProgrammingAcademy.AstroAssault.Utils;
 using LearnProgrammingAcademy.AstroAssault.Config;
+using LearnProgrammingAcademy.Generated;
 
 
 namespace LearnProgrammingAcademy.AstroAssault.Scene{
@@ -22,11 +22,15 @@ namespace LearnProgrammingAcademy.AstroAssault.Scene{
 
         // == OnClick Events == 
         public void PlayOnClick(){
-            SceneManager.LoadSceneAsync(SceneNames.LEVEL);
+            SceneManager.LoadSceneAsync(SceneNames.Level);
         }
 
         public void OptionsOnClick(){
-            SceneManager.LoadSceneAsync(SceneNames.OPTIONS,LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(SceneNames.Options,LoadSceneMode.Additive);
+        }
+    
+        public void TutorialOnClick(){
+            SceneManager.LoadSceneAsync(SceneNames.Tutorial, LoadSceneMode.Additive);
         }
     }
 }

@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿//Warning Comment
 namespace LearnProgrammingAcademy.AstroAssault.Utils{
 
-    public class SceneNames : MonoBehaviour{
+    public static class SceneNames{
 
-        // == constants == 
-        public const string LEVEL = "Level";
-        public const string MAIN_MENU = "MainMenu";
-        public const string OPTIONS = "Options";
-        public const string PAUSE = "Pause";
+        // == Constants == 
+        public const string Level = "Level";
+        public const string MainMenu = "MainMenu";
+        public const string Options = "Options";
+        public const string Pause = "Pause";
+        public const string GameOver = "GameOver";
+        public const string Tutorial = "Tutorial";
 
 
     }

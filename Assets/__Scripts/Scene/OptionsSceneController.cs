@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using LearnProgrammingAcademy.AstroAssault.Utils;
-
+using LearnProgrammingAcademy.AstroAssault.Config;
+using LearnProgrammingAcademy.Generated;
+//using LearnProgrammingAcademy.AstroAssault.Utils;
 
 namespace LearnProgrammingAcademy.AstroAssault.Scene{
 
@@ -12,7 +14,7 @@ namespace LearnProgrammingAcademy.AstroAssault.Scene{
 
         // == onClick Events == 
         public void BackOnClick(){
-            SceneManager.UnloadSceneAsync(SceneNames.OPTIONS);
+            SceneManager.UnloadSceneAsync(SceneNames.Options);
 
         }
     

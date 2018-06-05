@@ -6,10 +6,11 @@ namespace LearnProgrammingAcademy.Utils{
 
     //Imagine the 'T' is the PlayerPrefsController..
     public abstract class Singleton<T> : MonoBehaviour where T : Component{
-        // == Constants == 
-        private const string NAME_SUFFIX = " - Singleton";
 
-        // == fields ==
+        // == Constants == 
+        private const string NameSuffix = " - Singleton";
+
+        // == Fields ==
         private static T instance;
 
         // == Properties ==
@@ -23,7 +24,7 @@ namespace LearnProgrammingAcademy.Utils{
             }
         }
 
-        // == messages ==
+        // == Messages ==
         protected virtual void Awake(){
             if(!instance){
                 instance = Find();
@@ -34,7 +35,7 @@ namespace LearnProgrammingAcademy.Utils{
             }
         }
 
-        // == private methods ==
+        // == Private methods ==
         private static T Find(){
             var singletonComponent = FindObjectOfType<T>();
 
@@ -48,7 +49,7 @@ namespace LearnProgrammingAcademy.Utils{
                 //dont destroy after loading a new scene
                 DontDestroyOnLoad(singletonGameObject);
             }
-            singletonComponent.gameObject.name = typeof(T).Name + NAME_SUFFIX;
+            singletonComponent.gameObject.name = typeof(T).Name + NameSuffix;
             return singletonComponent;
         }
 

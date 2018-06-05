@@ -10,7 +10,8 @@ namespace LearnProgrammingAcademy.AstroAssault.Config{
     public class PlayerPrefsController : Singleton<PlayerPrefsController>{
 
         // == constants ==
-        private const string MUTE_KEY = "Mute";
+        private const string MuteKey = "Mute";
+        private const string TutorialKey = "Tutorial";
 
         //Awake Method goes here
         protected override void Awake()
@@ -21,21 +22,36 @@ namespace LearnProgrammingAcademy.AstroAssault.Config{
 
         // == public methods ==
         public void Mute(){
-            PlayerPrefs.SetInt(MUTE_KEY,1); // true
+            PlayerPrefs.SetInt(MuteKey,1); // true
             UpdateVolume();
         }
 
         public void UnMute(){
-            PlayerPrefs.SetInt(MUTE_KEY,0); // false
+            PlayerPrefs.SetInt(MuteKey,0); // false
             UpdateVolume();
         }
 
         public bool IsMute(){
-            return PlayerPrefs.GetInt(MUTE_KEY, 0) == 1;
+            return PlayerPrefs.GetInt(MuteKey, 0) == 1;
+        }
+
+        public void TutotialOn(){
+            PlayerPrefs.SetInt(TutorialKey,1); // true
+        }
+
+        public void TutorialOff(){
+            PlayerPrefs.SetInt(TutorialKey,0); // false
+        }
+
+        // Check..
+        public bool IsTutorialOn(){
+            return PlayerPrefs.GetInt(TutorialKey, 1) == 1;
         }
 
         public void ResetPrefs(){
             UnMute();
+            TutotialOn();
+            UpdateVolume();
         }
 
         // == private methods ==

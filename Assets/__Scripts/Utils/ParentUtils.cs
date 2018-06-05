@@ -16,22 +16,22 @@ namespace LearnProgrammingAcademy.AstroAssault.Utils
         //It's Better to have a const name instead of hard coding a string
 
         // == CONSTANTS ==
-        private const string ENEMIES_PARENT_NAME = "Enemies";
-        private const string BULLETS_PARENT_NAME = "Bullets";
-        private const string EXPLOSIONS_PARENT_NAME = "Explosions";
+        private const string EnemiesParentName = "Enemies";
+        private const string BulletsParentName = "Bullets";
+        private const string ExplosionsParentName = "Explosions";
 
 
         // == public Methods ==
         public static GameObject FindEnemiesParent(){
-            return FindParent(ENEMIES_PARENT_NAME);
+            return FindParent(EnemiesParentName);
         }
 
         public static GameObject FindBulletsParent(){
-            return FindParent(BULLETS_PARENT_NAME);
+            return FindParent(BulletsParentName);
         }
 
         public static GameObject FindExplosionsParent(){
-            return FindParent(EXPLOSIONS_PARENT_NAME);
+            return FindParent(ExplosionsParentName);
         }
 
 
